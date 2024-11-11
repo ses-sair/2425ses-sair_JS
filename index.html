@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sociedad Gastronómica y Cultural del País Vasco. Descubre nuestra rica gastronomía, eventos culturales y tradiciones culinarias vascas.">
+    <title>Inicio - Gastronomía y Cultura</title>
+    <link rel="stylesheet" href="estilos/estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Cabecera con logo y título principal -->
+<header class="main-header">
+    <div class="header-content">
+        <div class="logo-title">
+            <div class="logo-wrapper">
+                <img src="imagenes/Logo.jpg" alt="Logo del sitio" id="logo">
+            </div>
+            <div class="title-wrapper">
+                <h1>Sociedad Gastronómica y Cultural</h1>
+                <p class="subtitle">Tradición e Innovación</p>
+            </div>
+        </div>
+        <div class="header-extra">
+            <div class="contact-info">
+                <p><i class="fas fa-phone"></i> +34 900 000 000</p>
+                <p><i class="fas fa-envelope"></i> info@sociedadgastronomica.com</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <!-- Menú de navegación principal -->
+    <nav>
+        <ul>
+            <li><a href="index.html" class="active">Inicio</a></li>
+            <li><a href="recetas.html">Recetas</a></li>
+            <li><a href="historia.html">Historia</a></li>
+            <li><a href="cultura.html">Cultura</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+    <!-- Sección de bienvenida -->
+    
+        <main>
+        <section class="welcome-section">
+            <h2><i class="fas fa-utensils"></i> Bienvenidos a nuestro sitio</h2>
+            <p>Explora la riqueza de la gastronomía y cultura que nos rodea. Desde recetas tradicionales hasta la historia detrás de los platillos más famosos.</p>
+        </section>
+
+        <!-- Secciones destacadas con listas ordenadas y desordenadas -->
+        <ol class="main-sections-list">
+            <li><i class="fas fa-book"></i> Recetas tradicionales</li>
+            <li><i class="fas fa-history"></i> Historia gastronómica</li>
+            <li><i class="fas fa-calendar"></i> Eventos culturales</li>
+        </ol>
+        
+        
+
+<!-- Enlaces de interés -->
+<section class="links-section">
+    <h3><i class="fas fa-link" aria-hidden="true"></i> Enlaces de interés</h3>
+    <ul class="links-list">
+        <li><a href="https://www.euskadi.eus/" target="_blank" rel="noopener">Gobierno Vasco</a></li>
+        <li><a href="https://www.eitb.eus/" target="_blank" rel="noopener">EiTB</a></li>
+        <li><a href="https://www.sansebastianturismo.com/" target="_blank" rel="noopener">San Sebastián Turismo</a></li>
+    </ul>
+</section>
+
+<!-- Eventos -->
+<section class="events-section">
+    <h4><i class="fas fa-calendar-alt" aria-hidden="true"></i> Próximos eventos gastronómicos</h4>
+    <div class="events-grid">
+        <div class="event-item">
+            <i class="fas fa-utensils" aria-hidden="true"></i>
+            <span>Feria de la Cocina Tradicional - 15 de Mayo</span>
+        </div>
+        <div class="event-item">
+            <i class="fas fa-utensils" aria-hidden="true"></i>
+            <span>Taller de Pintxos - 20 de Mayo</span>
+        </div>
+        <div class="event-item">
+            <i class="fas fa-utensils" aria-hidden="true"></i>
+            <span>Festival Gastronómico - 1 de Junio</span>
+        </div>
+    </div>
+</section>
+</main>
+
+<!-- Pie de página -->
+<footer class="main-footer">
+    <div class="footer-content">
+        <div class="contact-info">
+        </div>
+        <div class="social-links">
+            <a href="https://facebook.com/sociedadgastronomica" target="_blank" rel="noopener" aria-label="Síguenos en Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com/sociedadgastronomica" target="_blank" rel="noopener" aria-label="Síguenos en Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="https://instagram.com/sociedadgastronomica" target="_blank" rel="noopener" aria-label="Síguenos en Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p class="copyright">&copy; 2024 Gastronomía y Cultura. Todos los derechos reservados.</p>
+    </div>
+</footer>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const eventItems = document.querySelectorAll('.event-item');
+        
+        eventItems.forEach(item => {
+            const dateText = item.querySelector('span').textContent;
+            // Extraer fecha en formato "DD de Mes"
+            const dateMatch = dateText.match(/(\d+)\s+de\s+(\w+)/);
+            
+            if (dateMatch) {
+                const day = parseInt(dateMatch[1]);
+                const month = getMonthNumber(dateMatch[2]);
+                const year = new Date().getFullYear();
+                
+                const eventDate = new Date(year, month, day);
+                const today = new Date();
+                
+                // Ajustar año si el evento ya pasó
+                if (eventDate < today) {
+                    eventDate.setFullYear(year + 1);
+                }
+                
+                const daysLeft = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
+                
+                if (daysLeft > 0) {
+                    const countdown = document.createElement('div');
+                    countdown.className = 'countdown';
+                    countdown.innerHTML = `<i class="fas fa-clock"></i> Faltan ${daysLeft} días`;
+                    item.appendChild(countdown);
+                } else {
+                    item.style.opacity = '0.5';
+                    const expired = document.createElement('div');
+                    expired.className = 'expired';
+                    expired.innerHTML = '<i class="fas fa-calendar-times"></i> Evento pasado';
+                    item.appendChild(expired);
+                }
+            }
+        });
+        
+        // Función auxiliar para convertir nombre del mes a número
+        function getMonthNumber(monthName) {
+            const months = {
+                'enero': 0,
+                'febrero': 1,
+                'marzo': 2,
+                'abril': 3,
+                'mayo': 4,
+                'junio': 5,
+                'julio': 6,
+                'agosto': 7,
+                'septiembre': 8,
+                'octubre': 9,
+                'noviembre': 10,
+                'diciembre': 11
+            };
+            return months[monthName.toLowerCase()];
+        }
+    });
+</script>
+</body>
+</html>
+
