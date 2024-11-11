@@ -59,41 +59,128 @@
     });
 
 
-// Temporizador para recetas
+// Configuración
+const TIMER_CONFIG = {
+    alertMessage: '¡La receta está lista!',
+    buttonTexts: {
+        start: '<i class="fas fa-clock"></i> Iniciar temporizador',
+        pause: '<i class="fas fa-pause"></i> Pausar',
+        resume: '<i class="fas fa-play"></i> Continuar',
+        stop: '<i class="fas fa-stop"></i> Detener'
+    }
+};
+
+// Clase Timer
+class RecipeTimer {
+    constructor(card, minutes) {
+        this.card = card;
+        this.initialTime = minutes * 60;
+        this.timeLeft = this.initialTime;
+        this.interval = null;
+        this.isPaused = false;
+        this.timerDisplay = null;
+    }
+
+    createControls() {
+        const controls = document.createElement('div');
+        controls.className = 'timer-controls';
+        
+        this.timerDisplay = document.createElement('div');
+        this.timerDisplay.className = 'timer-display';
+        
+        const btnContainer = document.createElement('div');
+        btnContainer.className = 'timer-buttons';
+
+        const startBtn = this.createButton('start', () => this.start());
+        const pauseBtn = this.createButton('pause', () => this.pause());
+        const stopBtn = this.createButton('stop', () => this.stop());
+
+        btnContainer.append(startBtn, pauseBtn, stopBtn);
+        controls.append(this.timerDisplay, btnContainer);
+        
+        return controls;
+    }
+
+    createButton(type, onClick) {
+        const btn = document.createElement('button');
+        btn.className = `timer-btn ${type}-btn`;
+        btn.innerHTML = TIMER_CONFIG.buttonTexts[type];
+        btn.onclick = onClick;
+        return btn;
+    }
+
+    updateDisplay() {
+        const mins = Math.floor(this.timeLeft / 60);
+        const secs = this.timeLeft % 60;
+        this.timerDisplay.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    start() {
+        if (this.interval) return;
+        
+        this.interval = setInterval(() => {
+            if (--this.timeLeft < 0) {
+                this.stop();
+                this.timerComplete();
+            } else {
+                this.updateDisplay();
+            }
+        }, 1000);
+
+        this.updateDisplay();
+    }
+
+    pause() {
+        if (this.isPaused) {
+            this.start();
+            this.isPaused = false;
+        } else {
+            clearInterval(this.interval);
+            this.interval = null;
+            this.isPaused = true;
+        }
+    }
+
+    stop() {
+        clearInterval(this.interval);
+        this.interval = null;
+        this.timeLeft = this.initialTime;
+        this.updateDisplay();
+    }
+
+    timerComplete() {
+        this.timerDisplay.textContent = '¡Tiempo completado!';
+        this.timerDisplay.classList.add('completed');
+        
+        // Notificación
+        if (Notification.permission === 'granted') {
+            new Notification(TIMER_CONFIG.alertMessage);
+        } else {
+            alert(TIMER_CONFIG.alertMessage);
+        }
+    }
+}
+
+// Inicialización
 document.addEventListener('DOMContentLoaded', () => {
     const recipeCards = document.querySelectorAll('.recipe-card');
     
     recipeCards.forEach(card => {
-        const timeText = card.querySelector('.recipe-meta span').textContent;
-        const minutes = parseInt(timeText.match(/\d+/)[0]);
-        
-        const timerBtn = document.createElement('button');
-        timerBtn.className = 'timer-btn';
-        timerBtn.innerHTML = '<i class="fas fa-clock"></i> Iniciar temporizador';
-        
-        timerBtn.onclick = function() {
-            let timeLeft = minutes * 60;
-            const timerDisplay = document.createElement('div');
-            timerDisplay.className = 'timer-display';
+        try {
+            const timeText = card.querySelector('.recipe-meta span').textContent;
+            const minutes = parseInt(timeText.match(/\d+/)[0]);
             
-            const interval = setInterval(() => {
-                const mins = Math.floor(timeLeft / 60);
-                const secs = timeLeft % 60;
-                timerDisplay.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
-                
-                if (--timeLeft < 0) {
-                    clearInterval(interval);
-                    timerDisplay.textContent = '¡Tiempo completado!';
-                    alert('¡La receta está lista!');
-                }
-            }, 1000);
+            if (isNaN(minutes)) throw new Error('Tiempo inválido');
             
-            card.querySelector('.recipe-meta').appendChild(timerDisplay);
-        };
-        
-        card.querySelector('.recipe-meta').appendChild(timerBtn);
+            const timer = new RecipeTimer(card, minutes);
+            const controls = timer.createControls();
+            card.querySelector('.recipe-meta').appendChild(controls);
+        } catch (error) {
+            console.error('Error al inicializar temporizador:', error);
+        }
     });
 });
+
 
 
 // Animaciones al scroll PARA LA SECCIÓN DE HISTORIA
@@ -195,4 +282,72 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => message.remove(), 3000);
     }
 });
+
+// Validación formulario de contacto
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('.contact-form');
+    
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Referencias a campos
+        const nombre = document.getElementById('nombre');
+        const email = document.getElementById('email');
+        const mensaje = document.getElementById('mensaje');
+        
+        // Reset errores
+        clearErrors();
+        
+        // Validaciones
+        let isValid = true;
+        
+        if (!nombre.value.trim()) {
+            showError(nombre, 'El nombre es requerido');
+            isValid = false;
+        }
+        
+        if (!validateEmail(email.value)) {
+            showError(email, 'Email inválido');
+            isValid = false;
+        }
+        
+        if (!mensaje.value.trim()) {
+            showError(mensaje, 'El mensaje es requerido');
+            isValid = false;
+        }
+        
+        // Si todo válido, mostrar confirmación
+        if (isValid) {
+            showSuccess();
+            form.reset();
+        }
+    });
+    
+    function validateEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+    
+    function showError(input, message) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.textContent = message;
+        input.parentNode.appendChild(errorDiv);
+        input.classList.add('error');
+    }
+    
+    function clearErrors() {
+        document.querySelectorAll('.error-message').forEach(e => e.remove());
+        document.querySelectorAll('.error').forEach(e => e.classList.remove('error'));
+    }
+    
+    function showSuccess() {
+        const successMsg = document.createElement('div');
+        successMsg.className = 'success-message';
+        successMsg.textContent = 'Mensaje enviado correctamente';
+        form.appendChild(successMsg);
+        
+        setTimeout(() => successMsg.remove(), 3000);
+    }
+});
+
 
