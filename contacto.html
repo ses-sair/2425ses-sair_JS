@@ -84,68 +84,7 @@
             <p>&copy; 2024 Gastronomía y Cultura. Todos los derechos reservados.</p>
         </div>
     </footer>
-    <script>
-        // Validación del formulario
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.querySelector('form');
-            const inputs = form.querySelectorAll('input, textarea');
-        
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                let isValid = true;
-        
-                inputs.forEach(input => {
-                    if (!validateInput(input)) {
-                        isValid = false;
-                    }
-                });
-        
-                if (isValid) {
-                    showSuccess();
-                    form.reset();
-                }
-            });
-        
-            function validateInput(input) {
-                const value = input.value.trim();
-                if (!value) {
-                    showError(input, 'Este campo es obligatorio');
-                    return false;
-                }
-                if (input.type === 'email' && !validateEmail(value)) {
-                    showError(input, 'Email no válido');
-                    return false;
-                }
-                removeError(input);
-                return true;
-            }
-        
-            function validateEmail(email) {
-                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-            }
-        
-            function showError(input, message) {
-                removeError(input);
-                const error = document.createElement('div');
-                error.className = 'error-message';
-                error.textContent = message;
-                input.parentNode.appendChild(error);
-            }
-        
-            function removeError(input) {
-                const error = input.parentNode.querySelector('.error-message');
-                if (error) error.remove();
-            }
-        
-            function showSuccess() {
-                const message = document.createElement('div');
-                message.className = 'success-message';
-                message.textContent = '¡Mensaje enviado con éxito!';
-                form.insertBefore(message, form.firstChild);
-                setTimeout(() => message.remove(), 3000);
-            }
-        });
-        </script>
+    <script src="funciones/funciones.js"></script>
 </body>
 </html>
 
