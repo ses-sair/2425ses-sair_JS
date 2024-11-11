@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Descubre la rica historia gastronómica del País Vasco, sus orígenes, evolución y platos tradicionales que han perdurado a través del tiempo.">
+    <title>Historia Gastronómica del País Vasco</title>
+    <link rel="stylesheet" href="estilos/estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Cabecera con logo y título principal -->
+<header class="main-header">
+    <div class="header-content">
+        <div class="logo-title">
+            <div class="logo-wrapper">
+                <img src="imagenes/Logo.jpg" alt="Logo del sitio" id="logo">
+            </div>
+            <div class="title-wrapper">
+                <h1>Historia Gastronómica</h1>
+                <p class="subtitle">Sabores de nuestra tierra</p>
+            </div>
+        </div>
+        <div class="header-extra">
+            <div class="contact-info">
+                <p><i class="fas fa-phone"></i> +34 900 000 000</p>
+                <p><i class="fas fa-envelope"></i> info@sociedadgastronomica.com</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="recetas.html">Recetas</a></li>
+            <li><a href="historia.html" class="active">Historia</a></li>
+            <li><a href="cultura.html">Cultura</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <main class="history-container">
+        <div class="history-grid">
+            <!-- Introducción -->
+            <section class="history-card">
+                <div class="history-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h2>Introducción</h2>
+                <img src="imagenes/Panoramica.jpg" alt="Panorámica del País Vasco" class="history-image">
+                <p>La gastronomía del País Vasco es una de las más ricas y variadas de España...</p>
+            </section>
+            
+            <!-- Orígenes -->
+            <section class="history-card">
+                <div class="history-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h2>Orígenes</h2>
+                <img src="imagenes/Pescadores.jpg" alt="Pescadores tradicionales" class="history-image">
+                <p>La cocina vasca tiene sus raíces en la tradición agrícola...</p>
+            </section>
+            
+            <!-- Influencia Moderna -->
+            <section class="history-card">
+                <div class="history-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h2>Influencia Moderna</h2>
+                <img src="imagenes/chef-modernos.jpg" alt="Chefs modernos" class="history-image">
+                <p>En las últimas décadas, la cocina vasca ha experimentado una revolución...</p>
+            </section>
+        </div>
+    </main>
+
+<!-- Sección de Platos Típicos mejorada -->
+<section class="platos-section">
+    <h2 class="section-title"><i class="fas fa-utensils"></i> Platos Típicos</h2>
+    <div class="platos-grid">
+        <div class="plato-card">
+            <div class="plato-image">
+                <img src="imagenes/Bacalao.jpg" alt="Bacalao a la vizcaína">
+            </div>
+            <div class="plato-content">
+                <h3>Bacalao a la vizcaína</h3>
+                <p>Plato tradicional elaborado con bacalao, pimientos y salsa vizcaína.</p>
+            </div>
+        </div>
+        <div class="plato-card">
+            <div class="plato-image">
+                <img src="imagenes/Marmitako.jpg" alt="Marmitako">
+            </div>
+            <div class="plato-content">
+                <h3>Marmitako</h3>
+                <p>El marmitako es un guiso de bonito con patatas, pimientos y cebolla. Es un plato tradicional de los pescadores vascos.</p>
+            </div>
+        </div>
+        <div class="plato-card">
+            <div class="plato-image">
+                <img src="imagenes/Pintxos.jpg" alt="Pintxos">
+            </div>
+            <div class="plato-content">
+                <h3>Pintxos</h3>
+                <p>Los pintxos son pequeñas porciones de comida que se sirven en bares y restaurantes. Son una parte esencial de la cultura gastronómica vasca.</p>
+            </div>
+        </div>
+    </div>
+</section>        
+
+
+<footer class="main-footer">
+    <div class="footer-content">
+        <div class="contact-info">
+        </div>
+        
+        <div class="social-links">
+            <a href="https://facebook.com/sociedadgastronomica" target="_blank" rel="noopener" aria-label="Síguenos en Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com/sociedadgastronomica" target="_blank" rel="noopener" aria-label="Síguenos en Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="https://instagram.com/sociedadgastronomica" target="_blank" rel="noopener" aria-label="Síguenos en Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p class="copyright">&copy; 2024 Gastronomía y Cultura. Todos los derechos reservados.</p>
+    </div>
+</footer>    
+<script>
+    // Animaciones al scroll
+    document.addEventListener('DOMContentLoaded', () => {
+        function checkScroll() {
+            const cards = document.querySelectorAll('.history-card');
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                if (cardTop < window.innerHeight * 0.75) {
+                    card.classList.add('visible');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkScroll);
+        checkScroll();
+    });
+    </script>
+</body>
+</html>
+
