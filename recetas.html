@@ -202,42 +202,6 @@
             <p class="copyright">&copy; 2024 Gastronomía y Cultura. Todos los derechos reservados.</p>
         </div>
     </footer>
-    <script>
-        // Temporizador para recetas
-        document.addEventListener('DOMContentLoaded', () => {
-            const recipeCards = document.querySelectorAll('.recipe-card');
-            
-            recipeCards.forEach(card => {
-                const timeText = card.querySelector('.recipe-meta span').textContent;
-                const minutes = parseInt(timeText.match(/\d+/)[0]);
-                
-                const timerBtn = document.createElement('button');
-                timerBtn.className = 'timer-btn';
-                timerBtn.innerHTML = '<i class="fas fa-clock"></i> Iniciar temporizador';
-                
-                timerBtn.onclick = function() {
-                    let timeLeft = minutes * 60;
-                    const timerDisplay = document.createElement('div');
-                    timerDisplay.className = 'timer-display';
-                    
-                    const interval = setInterval(() => {
-                        const mins = Math.floor(timeLeft / 60);
-                        const secs = timeLeft % 60;
-                        timerDisplay.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
-                        
-                        if (--timeLeft < 0) {
-                            clearInterval(interval);
-                            timerDisplay.textContent = '¡Tiempo completado!';
-                            alert('¡La receta está lista!');
-                        }
-                    }, 1000);
-                    
-                    card.querySelector('.recipe-meta').appendChild(timerDisplay);
-                };
-                
-                card.querySelector('.recipe-meta').appendChild(timerBtn);
-            });
-        });
-        </script>
+  <script src="funciones/funciones.js"></script>
 </body>
 </html>
