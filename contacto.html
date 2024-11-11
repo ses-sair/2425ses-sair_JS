@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contacta con nuestra Sociedad Gastronómica y Cultural del País Vasco. Envíanos tus consultas, sugerencias o reservas para eventos gastronómicos y culturales.">
+    <title>Contacto - Gastronomía y Cultura</title>
+    <link rel="stylesheet" href="estilos/estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Cabecera con logo y título principal -->
+    <header class="main-header">
+        <div class="header-content">
+            <!-- Sección izquierda: logo y título -->
+            <div class="logo-title">
+                <div class="logo-wrapper">
+                    <img src="imagenes/Logo.jpg" alt="Logo del sitio" id="logo">
+                </div>
+                <div class="title-wrapper">
+                    <h1>Contacto</h1>
+                    <p class="subtitle">Estamos aquí para ayudarte</p>
+                </div>
+            </div>
+            <!-- Sección derecha: información de contacto -->
+            <div class="header-extra">
+                <div class="contact-info">
+                    <p><i class="fas fa-phone"></i> +34 900 000 000</p>
+                    <p><i class="fas fa-envelope"></i> info@sociedadgastronomica.com</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menú de navegación con enlaces a otras páginas -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="recetas.html">Recetas</a></li>
+            <li><a href="historia.html">Historia</a></li>
+            <li><a href="cultura.html">Cultura</a></li>
+            <li><a href="contacto.html" class="active">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contenido principal: formulario de contacto -->
+    <main class="contact-container">
+        <section class="contact-form">
+            <form action="mailto:info@sociedadgastronomica.com" method="post">
+            <h2><i class="fas fa-envelope"></i> Ponte en contacto</h2>
+            <p>Nos encantaría escuchar tus comentarios y sugerencias sobre gastronomía y cultura vasca.</p>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="nombre"><i class="fas fa-user"></i> Nombre</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="correo"><i class="fas fa-envelope"></i> Correo</label>
+                    <input type="email" id="correo" name="correo" required>
+                </div>
+                <div class="form-group">
+                    <label for="asunto"><i class="fas fa-heading"></i> Asunto</label>
+                    <input type="text" id="asunto" name="asunto" required>
+                </div>
+                <div class="form-group">
+                    <label for="mensaje"><i class="fas fa-comment"></i> Mensaje</label>
+                    <textarea id="mensaje" name="mensaje" required></textarea>
+                </div>
+                <button type="submit"><i class="fas fa-paper-plane"></i> Enviar Mensaje</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="contact-info">
+            </div>
+            <div class="social-links">
+                <a href="https://facebook.com/sociedadgastronomica" target="_blank" rel="noopener" aria-label="Síguenos en Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="https://twitter.com/sociedadgastronomica" target="_blank" rel="noopener" aria-label="Síguenos en Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://instagram.com/sociedadgastronomica" target="_blank" rel="noopener" aria-label="Síguenos en Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>&copy; 2024 Gastronomía y Cultura. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <script>
+        // Validación del formulario
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.querySelector('form');
+            const inputs = form.querySelectorAll('input, textarea');
+        
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                let isValid = true;
+        
+                inputs.forEach(input => {
+                    if (!validateInput(input)) {
+                        isValid = false;
+                    }
+                });
+        
+                if (isValid) {
+                    showSuccess();
+                    form.reset();
+                }
+            });
+        
+            function validateInput(input) {
+                const value = input.value.trim();
+                if (!value) {
+                    showError(input, 'Este campo es obligatorio');
+                    return false;
+                }
+                if (input.type === 'email' && !validateEmail(value)) {
+                    showError(input, 'Email no válido');
+                    return false;
+                }
+                removeError(input);
+                return true;
+            }
+        
+            function validateEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+        
+            function showError(input, message) {
+                removeError(input);
+                const error = document.createElement('div');
+                error.className = 'error-message';
+                error.textContent = message;
+                input.parentNode.appendChild(error);
+            }
+        
+            function removeError(input) {
+                const error = input.parentNode.querySelector('.error-message');
+                if (error) error.remove();
+            }
+        
+            function showSuccess() {
+                const message = document.createElement('div');
+                message.className = 'success-message';
+                message.textContent = '¡Mensaje enviado con éxito!';
+                form.insertBefore(message, form.firstChild);
+                setTimeout(() => message.remove(), 3000);
+            }
+        });
+        </script>
+</body>
+</html>
+
