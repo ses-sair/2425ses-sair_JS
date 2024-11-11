@@ -100,65 +100,7 @@
         <p class="copyright">&copy; 2024 Gastronomía y Cultura. Todos los derechos reservados.</p>
     </div>
 </footer>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const eventItems = document.querySelectorAll('.event-item');
-        
-        eventItems.forEach(item => {
-            const dateText = item.querySelector('span').textContent;
-            // Extraer fecha en formato "DD de Mes"
-            const dateMatch = dateText.match(/(\d+)\s+de\s+(\w+)/);
-            
-            if (dateMatch) {
-                const day = parseInt(dateMatch[1]);
-                const month = getMonthNumber(dateMatch[2]);
-                const year = new Date().getFullYear();
-                
-                const eventDate = new Date(year, month, day);
-                const today = new Date();
-                
-                // Ajustar año si el evento ya pasó
-                if (eventDate < today) {
-                    eventDate.setFullYear(year + 1);
-                }
-                
-                const daysLeft = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
-                
-                if (daysLeft > 0) {
-                    const countdown = document.createElement('div');
-                    countdown.className = 'countdown';
-                    countdown.innerHTML = `<i class="fas fa-clock"></i> Faltan ${daysLeft} días`;
-                    item.appendChild(countdown);
-                } else {
-                    item.style.opacity = '0.5';
-                    const expired = document.createElement('div');
-                    expired.className = 'expired';
-                    expired.innerHTML = '<i class="fas fa-calendar-times"></i> Evento pasado';
-                    item.appendChild(expired);
-                }
-            }
-        });
-        
-        // Función auxiliar para convertir nombre del mes a número
-        function getMonthNumber(monthName) {
-            const months = {
-                'enero': 0,
-                'febrero': 1,
-                'marzo': 2,
-                'abril': 3,
-                'mayo': 4,
-                'junio': 5,
-                'julio': 6,
-                'agosto': 7,
-                'septiembre': 8,
-                'octubre': 9,
-                'noviembre': 10,
-                'diciembre': 11
-            };
-            return months[monthName.toLowerCase()];
-        }
-    });
-</script>
+<script src="funciones/funciones.js"></script>
 </body>
 </html>
 
