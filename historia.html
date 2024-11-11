@@ -122,23 +122,7 @@
         <p class="copyright">&copy; 2024 Gastronomía y Cultura. Todos los derechos reservados.</p>
     </div>
 </footer>    
-<script>
-    // Animaciones al scroll
-    document.addEventListener('DOMContentLoaded', () => {
-        function checkScroll() {
-            const cards = document.querySelectorAll('.history-card');
-            cards.forEach(card => {
-                const cardTop = card.getBoundingClientRect().top;
-                if (cardTop < window.innerHeight * 0.75) {
-                    card.classList.add('visible');
-                }
-            });
-        }
-        
-        window.addEventListener('scroll', checkScroll);
-        checkScroll();
-    });
-    </script>
+<script src="funciones/funciones.js"></script>
 </body>
 </html>
 
