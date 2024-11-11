@@ -174,27 +174,6 @@
             <p class="copyright">&copy; 2024 Gastronomía y Cultura. Todos los derechos reservados.</p>
         </div>
     </footer>
-    <script>
-        // Galería de imágenes y zoom
-        document.addEventListener('DOMContentLoaded', () => {
-            const images = document.querySelectorAll('.culture-image');
-            
-            images.forEach(img => {
-                img.addEventListener('click', () => {
-                    const overlay = document.createElement('div');
-                    overlay.className = 'image-overlay';
-                    overlay.innerHTML = `
-                        <div class="overlay-content">
-                            <img src="${img.src}" alt="${img.alt}">
-                            <button class="close-btn">&times;</button>
-                        </div>
-                    `;
-                    
-                    document.body.appendChild(overlay);
-                    overlay.querySelector('.close-btn').onclick = () => overlay.remove();
-                });
-            });
-        });
-        </script>
+    <script src="funciones/funciones.js"></script>
 </body>
 </html>
