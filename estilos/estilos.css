@@ -1000,5 +1000,44 @@ button[type="submit"]:hover {
     background: #e8f5e9;
     border-radius: 4px;
 }
+@media screen and (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+    }
+    
+    .logo-title {
+        text-align: center;
+    }
+    
+    .logo-wrapper img {
+        max-width: 150px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        padding: 0;
+    }
+    
+    nav li {
+        width: 100%;
+        text-align: center;
+    }
+    
+    nav a {
+        padding: 15px;
+        display: block;
+    }
+}
+@media screen and (max-width: 768px) {
+    .welcome-section {
+        padding: 20px;
+    }
+    
+    .main-sections-list {
+        padding: 0 20px;
+    }
+}
 
 
